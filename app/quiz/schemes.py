@@ -2,25 +2,39 @@ from marshmallow import Schema, fields
 
 
 class ThemeSchema(Schema):
-    id = fields.Int(required=False)
-    title = fields.Str(required=True)
+    title = fields.Str(required=True, example="Веб-программирование")
 
 
-class AnswerSchema(Schema):
+class ThemeCreateSchema(ThemeSchema):
     pass
 
 
-class QuestionSchema(Schema):
-    pass
+class ThemeResponseSchema(ThemeSchema):
+    id = fields.Int()
 
 
 class ThemeListSchema(Schema):
+    themes = fields.List(fields.Nested(ThemeResponseSchema))
+
+
+class AnswerSchema(Schema):
+    title = fields.Str(required=True, example="Ответ 1")
+    is_correct = fields.Bool(required=True, example=True)
+
+
+class QuestionSchema(Schema):
+    title = fields.Str(required=True, example="Вопрос 1")
+    theme_id = fields.Int(required=True, example=1)
+    answers = fields.List(fields.Nested(AnswerSchema), required=True)
+
+
+class QuestionCreateSchema(QuestionSchema):
     pass
 
 
-class ThemeIdSchema(Schema):
-    pass
+class QuestionResponseSchema(QuestionSchema):
+    id = fields.Int()
 
 
 class ListQuestionSchema(Schema):
-    pass
+    questions = fields.List(fields.Nested(QuestionResponseSchema))

@@ -13,12 +13,11 @@ class Store:
         from app.store.quiz.accessor import QuizAccessor
         from app.store.vk_api.accessor import VkApiAccessor
 
-        self.vk_api = VkApiAccessor(app)
-
         self.admins = AdminAccessor(app)
         self.quizzes = QuizAccessor(app)
 
         self.bots_manager = BotManager(app)
+        self.vk_api = VkApiAccessor(app)
 
 
 def setup_store(app: "Application") -> None:

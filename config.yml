@@ -1,12 +1,11 @@
-user_token: вставьте_ваш_токен_вместо_этой_строки
+user_token: YTkyMmNiNTktN2ZjNS00ZTRmLWI2MTMtOGRhOGNiMTU4ODVkXzk3Mjg=
 
 session:
-  key: key_to_generate
+  key: session_key
+  cookie_name: "AIOHTTP_SESSION"
 admin:
   email: admin@admin.com
   password: admin
 bot:
-  token: group_token
-  group_id: 1
-
-
+  token: vk_token
+  group_id: 12345

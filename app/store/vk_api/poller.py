@@ -10,12 +10,21 @@ class Poller:
         self.poll_task: Task | None = None
 
     async def start(self) -> None:
-        # TODO: добавить asyncio Task на запуск poll
-        raise NotImplementedError
+        self.is_running = True
+        self.poll_task = Task(self.poll())
 
     async def stop(self) -> None:
-        # TODO: gracefully завершить Poller
-        raise NotImplementedError
+        if self.poll_task:
+            self.poll_task.cancel()
+        self.is_running = False
 
     async def poll(self) -> None:
-        raise NotImplementedError
+        while self.is_running:
+            try:
+                updates = await self.store.vk_api.poll()
+                if updates:
+                    await self.store.bots_manager.handle_updates(
+                        updates=updates
+                    )
+            except Exception as e:
+                self.store.logger.error("Ошибка при опросе: %s", e)
