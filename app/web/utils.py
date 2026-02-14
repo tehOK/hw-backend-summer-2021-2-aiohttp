@@ -21,6 +21,7 @@ def error_json_response(
     message: str | None = None,
     data: dict | None = None,
 ):
+
     if data is None:
         return aiohttp_json_response(
             status=http_status,
@@ -29,6 +30,7 @@ def error_json_response(
                 "message": message,
             },
         )
+
     return aiohttp_json_response(
         status=http_status,
         data={
